@@ -1,0 +1,42 @@
+---
+layout: null
+permalink: /rss.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>{{ site.title | xml_escape }}</title>
+    <description>{{ site.description | xml_escape }}</description>
+    <link>{{ site.url }}{{ site.baseurl }}/</link>
+    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
+    <generator>Jekyll</generator>
+
+    {% assign items = site.pages | where_exp: "p", "p.url != nil" %}
+    {% for p in items %}
+      {% if p.url and p.title and p.layout != nil and p.url != "/rss.xml" and p.url != "/atom.xml" and p.url != "/sitemap.xml" %}
+      <item>
+        <title>{{ p.title | xml_escape }}</title>
+        <link>{{ site.url }}{{ site.baseurl }}{{ p.url }}</link>
+        <guid isPermaLink="true">{{ site.url }}{{ site.baseurl }}{{ p.url }}</guid>
+        <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+        <description><![CDATA[{{ p.content | markdownify | strip_html | truncate: 280 }}]]></description>
+      </item>
+      {% endif %}
+    {% endfor %}
+
+    {% if site.collections.pages and site.collections.pages.docs %}
+    {% assign collectionPages = site.collections.pages.docs | where_exp: "p", "p.url != nil" %}
+    {% for p in collectionPages %}
+      {% if p.url and p.title and p.layout != nil and p.url != "/rss.xml" and p.url != "/atom.xml" and p.url != "/sitemap.xml" %}
+      <item>
+        <title>{{ p.title | xml_escape }}</title>
+        <link>{{ site.url }}{{ site.baseurl }}{{ p.url }}</link>
+        <guid isPermaLink="true">{{ site.url }}{{ site.baseurl }}{{ p.url }}</guid>
+        <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
+        <description><![CDATA[{{ p.content | markdownify | strip_html | truncate: 280 }}]]></description>
+      </item>
+      {% endif %}
+    {% endfor %}
+    {% endif %}
+  </channel>
+</rss>

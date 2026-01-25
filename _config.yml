@@ -1,0 +1,36 @@
+title: "Rack Inteligente AIoT"
+description: "Sistema AIoT de gerenciamento e segurança ambiental para racks em infraestruturas de pequeno porte."
+lang: "pt-BR"
+
+url: ""
+baseurl: ""
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
+permalink: pretty
+
+collections:
+  pages:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+feed:
+  path: atom.xml
+  excerpt_only: false
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
